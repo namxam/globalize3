@@ -4,7 +4,11 @@ module Globalize
   module Versioning
     module VestalVersions
       def versioned_columns
-        super + self.class.translated_attribute_names
+        if self.class.respond_to? :translated_attribute_names
+          super + self.class.translated_attribute_names
+        else
+          super
+        end
       end
     end
   end
